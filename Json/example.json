@@ -1,0 +1,63 @@
+[
+    {
+        "country": "Spain",
+        "year": "2008",
+        "access": 589
+    },
+    {
+        "country": "Spain",
+        "year": "2007",
+        "unit": "GWh",
+        "solar": 508,
+        "access": 551
+    },
+    {
+        "country": "Spain",
+        "year": "2006",
+        "unit": "GWh",
+        "solar": 119,
+        "access": 601
+    },
+    {
+        "country": "Spain",
+        "year": "2005",
+        "unit": "GWh",
+        "solar": 41,
+        "access": 575
+    },
+    {
+        "country": "Spain",
+        "year": "2004",
+        "unit": "GWh",
+        "solar": 56,
+        "access": 636
+    },
+    {
+        "country": "Spain",
+        "year": "2003",
+        "unit": "GWh",
+        "solar": 41,
+        "access": 618
+    },
+    {
+        "country": "Spain",
+        "year": "2002",
+        "unit": "GWh",
+        "solar": 30,
+        "access": 630
+    },
+    {
+        "country": "Spain",
+        "year": "2001",
+        "unit": "GWh",
+        "solar": 24,
+        "access": 637
+    },
+    {
+        "country": "Spain",
+        "year": "2000",
+        "unit": "GWh",
+        "solar": 18,
+        "access": 622
+    }
+]
