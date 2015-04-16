@@ -37,22 +37,19 @@
         <div id="chart"></div>
     </div>
     <script>
+        var riskDataSource = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    url: "http://umass.tamago-db.com/reporting/data/new-candidate-totals",
+                    dataType: "json"
+                }
+            }
+        });
         function createChart() {
             $("#chart").kendoChart({
-                dataSource: {
-                    transport: {
-                        read: {
-                            url: "../Json/example.json",
-                            dataType: "json"
-                        }
-                    },
-                    sort: {
-                        field: "year",
-                        dir: "asc"
-                    }
-                },
+                dataSource: riskDataSource,
                 title: {
-                    text: "View per day (Tamago-DB)"
+                    text: "Candidates per day (Tamago-DB)"
                 },
                 legend: {
                     position: "top"
@@ -61,11 +58,11 @@
                     type: "line"
                 },
                 series: [{
-                    field: "access",
-                    name: "Access"
+                    field: "total",
+                    name: "Total number"
                 }],
                 categoryAxis: {
-                    field: "year",
+                    field: "date",
                     labels: {
                         rotation: -90
                     },
@@ -77,7 +74,7 @@
                     labels: {
                         format: "N0"
                     },
-                    majorUnit: 1000
+                    majorUnit: 15
                 },
                 tooltip: {
                     visible: true,
