@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <link href="../CSS/kendo.common.min.css" rel="stylesheet">
+    <link href="../CSS/kendo.default.min.css" rel="stylesheet">
+    <link href="../CSS/kendo.dataviz.min.css" rel="stylesheet">
+    <link href="../CSS/kendo.dataviz.default.min.css" rel="stylesheet">
+    <script src="../JavaScript/jquery.min.js"></script>
+    <script src="../JavaScript/kendo.all.min.js"></script>
+    <script>
+
+    </script>
+</head>
+<body>
+<div id="example">
+    <div class="demo-section k-content">
+        <table id="weather" class="weather">
+            <thead>
+            <tr>
+                <th class="month">MONTH</th>
+                <th>MAX TEMP &deg;C</th>
+                <th>WIND SPEED KM/H</th>
+                <th>RAINFALL MM</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+    <style>
+        .demo-section {
+            width: 560px;
+            height: 370px;
+        }
+        .demo-section .k-chart {
+            width: auto;
+            height: auto;
+        }
+        .weather {
+            border-collapse: collapse;
+            line-height: 50px;
+        }
+        .weather td, .weather th {
+            padding: 0;
+            width: 200px;
+            text-align: center;
+        }
+        .weather .month, .weather .month {
+            width: 80px;
+            text-align: right;
+            padding-right: 20px;
+        }
+    </style>
+
+    <script id="template" type="text/x-kendo-template">
+        <tr>
+            <td class="month">${month}</td>
+            <td><span class="sparkline-tmax"></span></td>
+            <td><span class="sparkline-wnd"></span></td>
+            <td><span class="sparkline-rain"></span></td>
+        </tr>
+    </script>
+
+    <script>
+        function createSparklines() {
+            // Create a row template using the above definition
+            var template = kendo.template($("#template").html());
+
+            var months = [ "2013-03", "2013-04", "2013-05", "2013-06", "2013-07", "2013-08", "2013-09", "2013-10",
+                "2013-11", "2013-12", "2014-01", "2014-03", "2014-05", "2014-06", "2014-10", "2014-11", "2014-12"  ];
+
+            $("#weather tbody").empty();
+            for (var i = 0; i < months.length; i++) {
+                var monthsNumber = i + 1;
+
+                var row = $("#weather tbody")
+                        .append(template({ month: months[i] }))
+                        .find("tr:last");
+
+                var rowDataSource = new kendo.data.DataSource({
+                    transport: {
+                        read: {
+                            url: "https://umass.tamago-db.com/reporting/data/new-candidate-totals",
+                            dataType: "json"
+                        }
+                    }
+                });
+
+                console.log(row);
+                //console.log(rowDataSource);
+
+                $(".sparkline-tmax", row).kendoSparkline({
+                    dataSource: rowDataSource,
+                    autoBind:false,
+                    series: [{
+                        type: "column",
+                        field: "total",
+                        color: "#ff0000",
+                        negativeColor: "#0099ff"
+                    }]
+                });
+
+                $(".sparkline-wnd", row).kendoSparkline({
+                    dataSource: rowDataSource,
+                    autoBind:false,
+                    series: [{
+                        field: "total",
+                        color: "#5b8f00"
+                    }]
+                });
+
+                $(".sparkline-rain", row).kendoSparkline({
+                    dataSource: rowDataSource,
+                    series: [{
+                        type: "area",
+                        field: "total",
+                        color: "#0099ff"
+                    }]
+                });
+            }
+        }
+
+        $(document).ready(createSparklines);
+        $("#example").bind("kendo:skinChange", createSparklines);
+    </script>
+</div>
+
+
+</body>
+</html>
